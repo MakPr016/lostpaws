@@ -20,6 +20,11 @@
                 <li><a href="/adopt">Adopt</a></li>
                 <li><a href="/donate">Donate</a></li>
                 <li><a href="/report" class="report-btn">Report</a></li>
+                <% if (isLoggedIn) { %>
+                    <li><a href="/logout" class="report-btn">Logout</a></li>
+                  <% } else { %>
+                    <li><a href="/login" class="report-btn">Login</a></li>
+                  <% } %>
             </ul>
         </nav>
     </header>

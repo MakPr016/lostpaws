@@ -1,9 +1,11 @@
 const express = require('express');
 const dotenv = require('dotenv');
 const cors = require('cors');
+const cookieParser = require('cookie-parser');
 const path = require('path');
 const connectDB = require('./config/db');
 const methodOverride = require("method-override");
+const isLoggedIn = require('./middlewares/isLoggedIn');
 
 dotenv.config();
 connectDB();
@@ -17,6 +19,13 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride("_method"));
+app.use(cookieParser());
+app.use(isLoggedIn);
+app.use(cors({
+    origin: process.env.FRONTEND_URL,
+    credentials: true,
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+}));
 
 // Frontend Routes
 app.get('/', (req, res) => {
